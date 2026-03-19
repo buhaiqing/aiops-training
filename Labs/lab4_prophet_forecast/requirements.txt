@@ -1,0 +1,19 @@
+# Lab 4: Prophet 时序预测与异常检测
+# Python 依赖包列表
+
+# 核心数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 可视化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Prophet 时序预测
+prophet>=1.1.5
+
+# 机器学习评估
+scikit-learn>=1.2.0
+
+# 科学计算
+scipy>=1.10.0

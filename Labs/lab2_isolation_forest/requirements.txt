@@ -1,0 +1,16 @@
+# Lab 2: Isolation Forest 检测多维指标异常
+# Python 依赖包列表
+
+# 核心数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 可视化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 机器学习
+scikit-learn>=1.2.0
+
+# 科学计算
+scipy>=1.10.0

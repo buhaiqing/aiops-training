@@ -1,0 +1,39 @@
+{
+  "runbook_id": "RB-MEMORY-LEAK",
+  "title": "内存泄漏排查流程",
+  "trigger_condition": "内存使用率 > 85%",
+  "severity": "P1",
+  "steps": [
+    {
+      "step": 1,
+      "action": "查看内存使用概况",
+      "command": "free -h && cat /proc/meminfo",
+      "check": "确认可用内存和缓存情况"
+    },
+    {
+      "step": 2,
+      "action": "识别内存占用进程",
+      "command": "ps aux --sort=-%mem | head -10",
+      "check": "找出内存占用最高的进程"
+    },
+    {
+      "step": 3,
+      "action": "检查 Java 堆内存（如果是 Java 应用）",
+      "command": "jmap -heap <pid>",
+      "check": "查看堆内存使用情况"
+    },
+    {
+      "step": 4,
+      "action": "分析内存增长趋势",
+      "command": "watch -n 5 'ps -p <PID> -o rss,vsz,%mem'",
+      "check": "观察内存是否持续增长"
+    },
+    {
+      "step": 5,
+      "action": "临时措施",
+      "command": "systemctl restart <service>",
+      "check": "释放内存，记录当前状态供后续分析"
+    }
+  ],
+  "escalation": "收集 heap dump 并联系开发团队分析"
+}

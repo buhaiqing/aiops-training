@@ -1,0 +1,22 @@
+# Lab 6: 基于 RAG 的故障知识问答系统
+# Python 依赖包列表
+
+# 核心数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 嵌入模型和向量检索
+sentence-transformers>=2.2.0
+faiss-cpu>=1.7.4
+
+# 可视化
+matplotlib>=3.7.0
+
+# 机器学习评估
+scikit-learn>=1.2.0
+
+# NLP 处理
+nltk>=3.8.0
+
+# 工具库
+tqdm>=4.65.0

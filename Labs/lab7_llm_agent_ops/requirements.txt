@@ -1,0 +1,17 @@
+# Lab 7: LLM Agent 自主运维实战
+
+## 依赖要求
+
+Python 3.10+ (仅使用标准库，无需额外依赖)
+
+## 快速开始
+
+### 一键执行所有步骤
+make all
+
+### 分步执行
+make data    # 生成告警数据和运维手册
+make run     # 运行 LLM Agent 诊断
+
+## 清理
+make clean   # 删除生成的文件

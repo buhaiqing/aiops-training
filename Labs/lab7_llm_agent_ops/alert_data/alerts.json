@@ -1,0 +1,421 @@
+[
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:43:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "warning",
+    "value": 75,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：75%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-006",
+    "timestamp": "2026-03-19T21:43:28.154291",
+    "source": "zabbix",
+    "metric": "disk_usage",
+    "severity": "info",
+    "value": 85,
+    "threshold": 85,
+    "host": "log-server-01",
+    "mount_point": "/var/log",
+    "message": "磁盘空间不足：85% (0GB 剩余)",
+    "labels": {
+      "env": "production",
+      "service": "logging",
+      "team": "infra"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:44:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "warning",
+    "value": 83,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：83%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:45:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "warning",
+    "value": 91,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：91%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-002",
+    "timestamp": "2026-03-19T21:45:28.154291",
+    "source": "prometheus",
+    "metric": "node_memory_usage",
+    "severity": "warning",
+    "value": 82,
+    "threshold": 85,
+    "host": "web-server-01",
+    "message": "内存使用率告警：82%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:46:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "critical",
+    "value": 99,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：99%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-002",
+    "timestamp": "2026-03-19T21:46:28.154291",
+    "source": "prometheus",
+    "metric": "node_memory_usage",
+    "severity": "warning",
+    "value": 85,
+    "threshold": 85,
+    "host": "web-server-01",
+    "message": "内存使用率告警：85%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-003",
+    "timestamp": "2026-03-19T21:46:28.154291",
+    "source": "grafana",
+    "metric": "http_response_time",
+    "severity": "warning",
+    "value": 1.5,
+    "threshold": 2.0,
+    "host": "web-server-01",
+    "message": "HTTP 响应时间异常：1.50s",
+    "labels": {
+      "env": "production",
+      "service": "api-gateway",
+      "team": "backend"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:47:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "critical",
+    "value": 107,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：107%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-002",
+    "timestamp": "2026-03-19T21:47:28.154291",
+    "source": "prometheus",
+    "metric": "node_memory_usage",
+    "severity": "warning",
+    "value": 88,
+    "threshold": 85,
+    "host": "web-server-01",
+    "message": "内存使用率告警：88%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-003",
+    "timestamp": "2026-03-19T21:47:28.154291",
+    "source": "grafana",
+    "metric": "http_response_time",
+    "severity": "warning",
+    "value": 2.3,
+    "threshold": 2.0,
+    "host": "web-server-01",
+    "message": "HTTP 响应时间异常：2.30s",
+    "labels": {
+      "env": "production",
+      "service": "api-gateway",
+      "team": "backend"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-004",
+    "timestamp": "2026-03-19T21:47:28.154291",
+    "source": "elk",
+    "metric": "error_rate",
+    "severity": "warning",
+    "value": 2.5,
+    "threshold": 5.0,
+    "host": "web-server-01",
+    "message": "应用错误率升高：2.5%",
+    "labels": {
+      "env": "production",
+      "service": "order-service",
+      "team": "business"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-001",
+    "timestamp": "2026-03-19T21:48:28.154291",
+    "source": "prometheus",
+    "metric": "node_cpu_usage",
+    "severity": "critical",
+    "value": 115,
+    "threshold": 80,
+    "host": "web-server-01",
+    "message": "CPU 使用率持续升高：115%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-002",
+    "timestamp": "2026-03-19T21:48:28.154291",
+    "source": "prometheus",
+    "metric": "node_memory_usage",
+    "severity": "warning",
+    "value": 91,
+    "threshold": 85,
+    "host": "web-server-01",
+    "message": "内存使用率告警：91%",
+    "labels": {
+      "env": "production",
+      "service": "nginx",
+      "team": "platform"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-003",
+    "timestamp": "2026-03-19T21:48:28.154291",
+    "source": "grafana",
+    "metric": "http_response_time",
+    "severity": "critical",
+    "value": 3.1,
+    "threshold": 2.0,
+    "host": "web-server-01",
+    "message": "HTTP 响应时间异常：3.10s",
+    "labels": {
+      "env": "production",
+      "service": "api-gateway",
+      "team": "backend"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-004",
+    "timestamp": "2026-03-19T21:48:28.154291",
+    "source": "elk",
+    "metric": "error_rate",
+    "severity": "warning",
+    "value": 4.0,
+    "threshold": 5.0,
+    "host": "web-server-01",
+    "message": "应用错误率升高：4.0%",
+    "labels": {
+      "env": "production",
+      "service": "order-service",
+      "team": "business"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-005",
+    "timestamp": "2026-03-19T21:48:28.154291",
+    "source": "prometheus",
+    "metric": "mysql_connection_pool_usage",
+    "severity": "warning",
+    "value": 70,
+    "threshold": 80,
+    "host": "db-master-01",
+    "message": "MySQL 连接池使用率：70%",
+    "labels": {
+      "env": "production",
+      "service": "mysql",
+      "team": "dba"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-003",
+    "timestamp": "2026-03-19T21:49:28.154291",
+    "source": "grafana",
+    "metric": "http_response_time",
+    "severity": "critical",
+    "value": 3.9000000000000004,
+    "threshold": 2.0,
+    "host": "web-server-01",
+    "message": "HTTP 响应时间异常：3.90s",
+    "labels": {
+      "env": "production",
+      "service": "api-gateway",
+      "team": "backend"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-004",
+    "timestamp": "2026-03-19T21:49:28.154291",
+    "source": "elk",
+    "metric": "error_rate",
+    "severity": "warning",
+    "value": 5.5,
+    "threshold": 5.0,
+    "host": "web-server-01",
+    "message": "应用错误率升高：5.5%",
+    "labels": {
+      "env": "production",
+      "service": "order-service",
+      "team": "business"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-005",
+    "timestamp": "2026-03-19T21:49:28.154291",
+    "source": "prometheus",
+    "metric": "mysql_connection_pool_usage",
+    "severity": "warning",
+    "value": 80,
+    "threshold": 80,
+    "host": "db-master-01",
+    "message": "MySQL 连接池使用率：80%",
+    "labels": {
+      "env": "production",
+      "service": "mysql",
+      "team": "dba"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-003",
+    "timestamp": "2026-03-19T21:50:28.154291",
+    "source": "grafana",
+    "metric": "http_response_time",
+    "severity": "critical",
+    "value": 4.7,
+    "threshold": 2.0,
+    "host": "web-server-01",
+    "message": "HTTP 响应时间异常：4.70s",
+    "labels": {
+      "env": "production",
+      "service": "api-gateway",
+      "team": "backend"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-004",
+    "timestamp": "2026-03-19T21:50:28.154291",
+    "source": "elk",
+    "metric": "error_rate",
+    "severity": "warning",
+    "value": 7.0,
+    "threshold": 5.0,
+    "host": "web-server-01",
+    "message": "应用错误率升高：7.0%",
+    "labels": {
+      "env": "production",
+      "service": "order-service",
+      "team": "business"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-005",
+    "timestamp": "2026-03-19T21:50:28.154291",
+    "source": "prometheus",
+    "metric": "mysql_connection_pool_usage",
+    "severity": "warning",
+    "value": 90,
+    "threshold": 80,
+    "host": "db-master-01",
+    "message": "MySQL 连接池使用率：90%",
+    "labels": {
+      "env": "production",
+      "service": "mysql",
+      "team": "dba"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-005",
+    "timestamp": "2026-03-19T21:51:28.154291",
+    "source": "prometheus",
+    "metric": "mysql_connection_pool_usage",
+    "severity": "critical",
+    "value": 100,
+    "threshold": 80,
+    "host": "db-master-01",
+    "message": "MySQL 连接池使用率：100%",
+    "labels": {
+      "env": "production",
+      "service": "mysql",
+      "team": "dba"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-006",
+    "timestamp": "2026-03-19T22:43:28.154291",
+    "source": "zabbix",
+    "metric": "disk_usage",
+    "severity": "warning",
+    "value": 90,
+    "threshold": 85,
+    "host": "log-server-01",
+    "mount_point": "/var/log",
+    "message": "磁盘空间不足：90% (20GB 剩余)",
+    "labels": {
+      "env": "production",
+      "service": "logging",
+      "team": "infra"
+    }
+  },
+  {
+    "alert_id": "ALT-20260319214328-006",
+    "timestamp": "2026-03-19T23:43:28.154291",
+    "source": "zabbix",
+    "metric": "disk_usage",
+    "severity": "critical",
+    "value": 95,
+    "threshold": 85,
+    "host": "log-server-01",
+    "mount_point": "/var/log",
+    "message": "磁盘空间不足：95% (40GB 剩余)",
+    "labels": {
+      "env": "production",
+      "service": "logging",
+      "team": "infra"
+    }
+  }
+]

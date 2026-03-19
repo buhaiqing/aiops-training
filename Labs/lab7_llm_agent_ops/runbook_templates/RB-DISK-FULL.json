@@ -1,0 +1,39 @@
+{
+  "runbook_id": "RB-DISK-FULL",
+  "title": "磁盘空间清理流程",
+  "trigger_condition": "磁盘使用率 > 90%",
+  "severity": "P2",
+  "steps": [
+    {
+      "step": 1,
+      "action": "查看磁盘使用情况",
+      "command": "df -h && du -sh /* | sort -hr | head -20",
+      "check": "找出占用空间最大的目录"
+    },
+    {
+      "step": 2,
+      "action": "检查日志文件",
+      "command": "find /var/log -type f -size +100M",
+      "check": "查找大日志文件"
+    },
+    {
+      "step": 3,
+      "action": "清理旧日志",
+      "command": "journalctl --vacuum-time=7d",
+      "check": "保留最近 7 天的日志"
+    },
+    {
+      "step": 4,
+      "action": "压缩归档",
+      "command": "tar -czf old_logs.tar.gz /var/log/*.gz",
+      "check": "将旧日志打包存档"
+    },
+    {
+      "step": 5,
+      "action": "设置日志轮转",
+      "command": "vi /etc/logrotate.d/<app>",
+      "check": "配置自动清理策略"
+    }
+  ],
+  "escalation": "如需扩容磁盘，提交变更申请"
+}

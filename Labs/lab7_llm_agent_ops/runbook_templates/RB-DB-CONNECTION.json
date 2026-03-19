@@ -1,0 +1,39 @@
+{
+  "runbook_id": "RB-DB-CONNECTION",
+  "title": "数据库连接池耗尽处理",
+  "trigger_condition": "连接池使用率 > 90%",
+  "severity": "P0",
+  "steps": [
+    {
+      "step": 1,
+      "action": "查看当前连接数",
+      "command": "mysql -e \"SHOW PROCESSLIST;\"",
+      "check": "统计活跃连接和睡眠连接"
+    },
+    {
+      "step": 2,
+      "action": "识别慢查询",
+      "command": "mysql -e \"SELECT * FROM information_schema.PROCESSLIST WHERE TIME > 60;\"",
+      "check": "找出执行时间过长的查询"
+    },
+    {
+      "step": 3,
+      "action": "终止异常连接",
+      "command": "mysql -e \"KILL <connection_id>;\"",
+      "check": "谨慎操作，避免影响正常业务"
+    },
+    {
+      "step": 4,
+      "action": "临时增加连接池大小",
+      "command": "修改配置文件 max_connections 参数",
+      "check": "评估数据库服务器承受能力"
+    },
+    {
+      "step": 5,
+      "action": "优化慢查询",
+      "command": "explain <slow_query>",
+      "check": "分析执行计划，添加索引"
+    }
+  ],
+  "escalation": "联系 DBA 团队进行深度优化"
+}

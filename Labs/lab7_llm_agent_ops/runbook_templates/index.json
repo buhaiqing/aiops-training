@@ -1,0 +1,25 @@
+{
+  "total_runbooks": 4,
+  "runbooks": [
+    {
+      "runbook_id": "RB-CPU-HIGH",
+      "title": "CPU 使用率过高处理流程",
+      "severity": "P1"
+    },
+    {
+      "runbook_id": "RB-MEMORY-LEAK",
+      "title": "内存泄漏排查流程",
+      "severity": "P1"
+    },
+    {
+      "runbook_id": "RB-DISK-FULL",
+      "title": "磁盘空间清理流程",
+      "severity": "P2"
+    },
+    {
+      "runbook_id": "RB-DB-CONNECTION",
+      "title": "数据库连接池耗尽处理",
+      "severity": "P0"
+    }
+  ]
+}

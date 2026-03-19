@@ -1,0 +1,39 @@
+{
+  "runbook_id": "RB-CPU-HIGH",
+  "title": "CPU 使用率过高处理流程",
+  "trigger_condition": "CPU 使用率 > 80% 持续 5 分钟",
+  "severity": "P1",
+  "steps": [
+    {
+      "step": 1,
+      "action": "确认告警真实性",
+      "command": "top -bn1 | head -20",
+      "check": "确认是否有进程占用异常 CPU"
+    },
+    {
+      "step": 2,
+      "action": "识别高负载进程",
+      "command": "ps aux --sort=-%cpu | head -10",
+      "check": "记录 PID 和进程名"
+    },
+    {
+      "step": 3,
+      "action": "分析进程行为",
+      "command": "strace -p <PID> -c",
+      "check": "查看系统调用分布"
+    },
+    {
+      "step": 4,
+      "action": "临时缓解",
+      "command": "renice +10 -p <PID>",
+      "check": "降低进程优先级"
+    },
+    {
+      "step": 5,
+      "action": "重启服务（如必要）",
+      "command": "systemctl restart <service>",
+      "check": "观察 CPU 是否恢复正常"
+    }
+  ],
+  "escalation": "如果无法定位原因，升级到二线支持"
+}

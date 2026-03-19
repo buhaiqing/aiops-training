@@ -1,0 +1,13 @@
+[project]
+name = "lab7-llm-agent-ops"
+version = "1.0.0"
+description = "Lab 7: LLM Agent 自主运维实战 - 使用大语言模型进行智能故障诊断"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "AIOps Training", email = "aiops@example.com"}
+]
+
+[dependencies]
+# 无第三方依赖，仅使用 Python 标准库
