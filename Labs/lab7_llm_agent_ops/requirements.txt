@@ -1,8 +1,11 @@
-# Lab 7: LLM Agent 自主运维实战
+# Lab 7: LLM Agent 自主运维实战 - 依赖配置
 
-## 依赖要求
+## 基础依赖（标准库）
+# Python 3.10+ (仅使用标准库，无需额外依赖)
 
-Python 3.10+ (仅使用标准库，无需额外依赖)
+## 可选依赖：阿里云百炼集成
+# 如需使用真实的云厂商模型服务，请安装以下依赖：
+dashscope>=1.14.0  # 阿里云百炼 SDK
 
 ## 快速开始
 
@@ -11,7 +14,22 @@ make all
 
 ### 分步执行
 make data    # 生成告警数据和运维手册
-make run     # 运行 LLM Agent 诊断
+make run     # 运行 LLM Agent 诊断（模拟模式）
+make bailian # 运行阿里云百炼诊断（需先配置 API Key）
+
+### 安装阿里云百炼依赖
+uv pip install dashscope
+# 或
+pip install dashscope
+
+## 清理
+make clean   # 删除生成的文件
+make bailian # 运行阿里云百炼诊断（需先配置 API Key）
+
+### 安装阿里云百炼依赖
+uv pip install dashscope
+# 或
+pip install dashscope
 
 ## 清理
 make clean   # 删除生成的文件

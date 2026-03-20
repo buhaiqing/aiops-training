@@ -2,6 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 Lab 4: Prophet 时序预测与异常检测
+学习目标：
+1. 掌握 Prophet 模型的基本原理（趋势+季节性+节假日分解）
+2. 学会使用 Prophet 进行时序预测和置信区间估计
+3. 理解基于预测残差的异常检测方法
+4. 能够评估预测模型性能（MAE、RMSE、MAPE）
+5. 掌握时序数据的可视化分析方法
 主程序：使用 Prophet 进行时序分解和异常检测
 """
 
@@ -283,8 +289,12 @@ def visualize_results(model, forecast, actual_data, anomaly_scores, is_anomaly):
         model.plot(forecast, ax=ax6)
     except:
         ax6.plot(forecast['ds'], forecast['yhat'], label='预测值', linewidth=2)
-        ax6.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'], 
+        ax6.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'],
                         alpha=0.3, color='gray')
+    # 标记异常点为红色
+    ax6.scatter(actual_dates[is_anomaly], actual_values[is_anomaly],
+                c='red', s=100, marker='x', label='异常点', zorder=5, linewidth=3)
+    ax6.legend(loc='upper right')
     ax6.set_title('Prophet 长期预测趋势', fontsize=12, fontweight='bold')
     ax6.set_xlabel('日期')
     ax6.set_ylabel('CPU 使用率 (%)')
