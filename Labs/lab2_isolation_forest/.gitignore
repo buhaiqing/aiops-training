@@ -37,9 +37,15 @@ env/
 .ipynb_checkpoints
 
 # Lab generated files
-cpu_memory_data.csv
-3sigma_detection_result.png
+multidim_monitoring_data.csv
+isolation_forest_results.png
+feature_statistics.csv
 *.log
+
+# MLflow
+mlruns/
+mlflow.db
+models/
 
 # uv
 uv.lock

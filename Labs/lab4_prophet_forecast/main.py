@@ -189,17 +189,15 @@ def evaluate_model_performance(actual_values, predicted_values):
 def visualize_results(model, forecast, actual_data, anomaly_scores, is_anomaly):
     """可视化检测结果"""
     
-    # 创建图形
     fig = plt.figure(figsize=(20, 12))
     
-    # 子图 1: Prophet 组件分解（先单独绘制再整合）
+    # 子图 1: Prophet 组件分解
     ax1 = plt.subplot(3, 2, 1)
     try:
         model.plot_components(forecast)
         plt.suptitle('Prophet 模型组件分解', fontsize=14, fontweight='bold')
     except Exception as e:
         print(f"⚠️  无法使用 plot_components，手动绘制组件：{e}")
-        # 手动绘制趋势和季节性
         ax1.plot(forecast['ds'], forecast['trend'], label='趋势', linewidth=2)
         if 'weekly' in forecast.columns:
             ax1.plot(forecast['ds'], forecast['weekly'], label='周季节性', linestyle='--')
@@ -287,11 +285,10 @@ def visualize_results(model, forecast, actual_data, anomaly_scores, is_anomaly):
     ax6 = plt.subplot(3, 2, 6)
     try:
         model.plot(forecast, ax=ax6)
-    except:
+    except Exception:
         ax6.plot(forecast['ds'], forecast['yhat'], label='预测值', linewidth=2)
         ax6.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'],
                         alpha=0.3, color='gray')
-    # 标记异常点为红色
     ax6.scatter(actual_dates[is_anomaly], actual_values[is_anomaly],
                 c='red', s=100, marker='x', label='异常点', zorder=5, linewidth=3)
     ax6.legend(loc='upper right')
@@ -331,7 +328,7 @@ def generate_anomaly_report(actual_data, anomaly_scores, is_anomaly, top_n=5):
         value = actual_data.iloc[actual_idx]['y']
         score = anomaly_scores[actual_idx]
         
-        print(f"\n#{rank}: 时间={timestamp.strftime('%Y-%m-%d')}, "
+        print(f"#{rank}: 时间={timestamp.strftime('%Y-%m-%d')}, "
               f"值={value:.2f}%, 异常分数={score:.4f}")
 
 
@@ -346,11 +343,7 @@ def main():
     df, train_data, test_data = load_and_prepare_data()
     
     # 2. 训练模型
-    model = train_prophet_model(
-        train_data,
-        weekly_seasonality=True,
-        yearly_seasonality=True
-    )
+    model = train_prophet_model(train_data, weekly_seasonality=True, yearly_seasonality=True)
     
     # 3. 执行预测
     forecast = make_predictions(model, test_data, forecast_periods=30)
@@ -358,15 +351,10 @@ def main():
     # 4. 评估模型性能
     actual_test_values = test_data['y'].values
     predicted_test_values = forecast['yhat'].values[-len(actual_test_values):]
-    
     metrics = evaluate_model_performance(actual_test_values, predicted_test_values)
     
     # 5. 异常检测
-    anomaly_scores, is_anomaly = detect_anomalies(
-        forecast,
-        actual_test_values,
-        threshold_multiplier=2.5
-    )
+    anomaly_scores, is_anomaly = detect_anomalies(forecast, actual_test_values, threshold_multiplier=2.5)
     
     # 6. 生成异常报告
     generate_anomaly_report(test_data, anomaly_scores, is_anomaly, top_n=5)

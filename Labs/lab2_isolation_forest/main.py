@@ -3,6 +3,7 @@
 """
 Lab 2: Isolation Forest 检测多维指标异常
 主程序：使用 Isolation Forest 进行多维异常检测
+集成 MLflow 进行实验追踪和模型管理
 """
 
 import numpy as np
@@ -13,6 +14,9 @@ from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.metrics import classification_report, confusion_matrix
+import mlflow
+import mlflow.sklearn
+from mlflow_config import MLflowConfig
 
 # 设置中文字体
 plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans']
@@ -236,28 +240,92 @@ def main():
     print("=" * 60)
     print("")
     
-    # 1. 加载数据
-    df, X, timestamps, feature_cols = load_and_prepare_data()
-    print(f"✓ 数据加载完成")
-    print(f"  - 样本数量：{len(df)}")
-    print(f"  - 特征维度：{len(feature_cols)}")
-    print(f"  - 特征列表：{', '.join(feature_cols)}")
+    # 设置 MLflow
+    print("正在初始化 MLflow 实验追踪...")
+    experiment_id = MLflowConfig.setup()
+    print(f"✓ MLflow 实验已设置：{MLflowConfig.EXPERIMENT_NAME}")
+    print(f"  跟踪 URI: {MLflowConfig.TRACKING_URI}")
     print("")
     
-    # 2. 训练模型
-    model, scaler, X_scaled = train_isolation_forest(X, contamination=0.025)
-    
-    # 3. 检测异常
-    predictions, scores = detect_anomalies(model, X_scaled, timestamps)
-    
-    # 4. 特征重要性分析
-    analyze_feature_importance(model, X_scaled, feature_cols)
-    
-    # 5. 生成异常详情报告
-    generate_anomaly_details(df, predictions, timestamps)
-    
-    # 6. 可视化
-    visualize_results(df, X_scaled, predictions, scores, timestamps, feature_cols)
+    # 启动 MLflow run
+    with mlflow.start_run(run_name=f"isolation_forest_contamination_0.025") as run:
+        # 记录超参数
+        mlflow.log_params(MLflowConfig.DEFAULT_PARAMS)
+        
+        # 1. 加载数据
+        df, X, timestamps, feature_cols = load_and_prepare_data()
+        print(f"✓ 数据加载完成")
+        print(f"  - 样本数量：{len(df)}")
+        print(f"  - 特征维度：{len(feature_cols)}")
+        print(f"  - 特征列表：{', '.join(feature_cols)}")
+        print("")
+        
+        # 2. 训练模型
+        model, scaler, X_scaled = train_isolation_forest(X, contamination=0.025)
+        
+        # 3. 检测异常
+        predictions, scores = detect_anomalies(model, X_scaled, timestamps)
+        
+        # 4. 记录关键指标到 MLflow
+        n_total = len(predictions)
+        n_anomalies = np.sum(predictions == -1)
+        anomaly_rate = n_anomalies / n_total * 100
+        
+        mlflow.log_metric("total_samples", n_total)
+        mlflow.log_metric("detected_anomalies", n_anomalies)
+        mlflow.log_metric("anomaly_rate", anomaly_rate)
+        mlflow.log_metric("avg_anomaly_score", float(scores.mean()))
+        mlflow.log_metric("min_anomaly_score", float(scores.min()))
+        mlflow.log_metric("max_anomaly_score", float(scores.max()))
+        
+        # 5. 保存模型和 scaler
+        # 创建一个 Pipeline 以便同时保存 scaler 和 model
+        from sklearn.pipeline import Pipeline
+        pipeline = Pipeline([
+            ('scaler', scaler),
+            ('model', model)
+        ])
+        mlflow.sklearn.log_model(pipeline, MLflowConfig.MODEL_PATH)
+        
+        # 6. 特征重要性分析
+        analyze_feature_importance(model, X_scaled, feature_cols)
+        
+        # 7. 生成异常详情报告
+        generate_anomaly_details(df, predictions, timestamps)
+        
+        # 8. 可视化
+        visualize_results(df, X_scaled, predictions, scores, timestamps, feature_cols)
+        
+        # 9. 记录可视化结果为 artifact
+        mlflow.log_artifact("isolation_forest_results.png", "visualizations")
+        
+        # 10. 记录特征统计信息
+        feature_stats = []
+        for i, col in enumerate(feature_cols):
+            mean_val = np.abs(X_scaled[:, i]).mean()
+            std_val = X_scaled[:, i].std()
+            feature_stats.append({
+                'Feature': col,
+                'Mean Abs Value': float(mean_val),
+                'Std Dev': float(std_val)
+            })
+        stats_df = pd.DataFrame(feature_stats)
+        stats_df.to_csv("feature_statistics.csv", index=False)
+        mlflow.log_artifact("feature_statistics.csv", "data")
+        
+        # 11. 记录运行信息
+        mlflow.set_tag("mlflow.runName", f"isolation_forest_contamination_0.025")
+        mlflow.set_tag("experiment.type", "anomaly_detection")
+        mlflow.set_tag("algorithm", "IsolationForest")
+        
+        print("=" * 60)
+        print("MLflow 实验追踪完成！")
+        print("=" * 60)
+        print(f"Run ID: {run.info.run_id}")
+        print(f"Run Name: {run.info.run_name}")
+        print(f"Experiment ID: {experiment_id}")
+        print(f"Artifact 路径：{run.info.artifact_uri}")
+        print("")
     
     print("=" * 60)
     print("实验完成！")
@@ -268,6 +336,7 @@ def main():
     print("  2. 调整 contamination 参数观察效果")
     print("  3. 尝试不同的特征组合")
     print("  4. 对比其他算法（如 One-Class SVM）")
+    print("  5. 访问 MLflow UI 查看实验详情和对比结果")
     print("")
 
 
